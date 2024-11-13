@@ -43,8 +43,9 @@ def login():
     if request.method=="POST":
         emailId = request.form.get("emailId")
         password = request.form.get("password")
-        print(emailId, password)
+        print(emailId, password, "one sec")
         if res:=users.find_one({"emailId": emailId, "password": password}):
+            print("requesting")
             session["emailId"] = emailId
             session["name"] = res["name"]
             session["preferredTheme"] = res["preferredTheme"]
