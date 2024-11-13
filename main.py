@@ -2,8 +2,7 @@
 from flask import Flask, request, redirect, render_template, session, url_for
 from flask_pymongo import MongoClient, ObjectId
 from dotenv import load_dotenv
-from datetime import datetime, timezone
-from zoneinfo import ZoneInfo
+from datetime import datetime, timedelta, UTC
 import os, re
 load_dotenv()
 
@@ -77,8 +76,7 @@ def signup():
         elif password!=confirmPassword:
             return render_template("signupPasswordNotSame.html", name=name, emailId = emailId, password = password, confirmPassword = confirmPassword)
         
-        dt = datetime.now(timezone.utc)
-        dt = dt.replace(tzinfo=ZoneInfo("Asia/Kolkata"))
+        dt = datetime.now(UTC) + timedelta(hours= 5, minutes = 30)
         
         users.insert_one({
             "name": name,
@@ -102,7 +100,7 @@ def quiz(courseCode: str, mode: str):
             return render_template("quizNotCompleted.html", **session, pageTitle = "Quiz", courseCode = courseCode, mode = mode, questions = enumerate(questionss, 1), attemptedQuestions = {ObjectId(k):v for k, v in request.form.items()})
         points = 0
         history: list = users.find_one({"emailId": session["emailId"]})["history"]
-        dt = datetime.now()
+        dt = datetime.now(UTC) + timedelta(hours= 5, minutes= 30)
         sessionDetails = {
             "courseTitle":  extraDB.find_one({"courseCode": courseCode})["courseTitle"] if mode=="QUESTIONS" else subjectsDB.find_one({"courseCode": courseCode})["courseTitle"],
             "courseCode": courseCode,
