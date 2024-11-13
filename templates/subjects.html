@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+{% block start %}
+<div class="divider" style="font-size: large;">Academics</div>
+<div class="divider divider-start" style="margin: 1%;">1st year</div>
+{% for d in firstYears %}
+<div class="collapse collapse-arrow  bg-base-300" style="margin: 1%; max-width: 98%;">
+  <input type="checkbox" name="my-accordion-1" />
+  <div class="collapse-title text-xl font-medium">{{d["courseTitle"]}}</div>
+  <div class="collapse-content">
+
+    <label for="my_modal_{{ loop.index }}_1_1" class="btn" style="margin: 1%;">MSE 1</label>
+    <input type="checkbox" id="my_modal_{{ loop.index }}_1_1" class="modal-toggle" />
+    <div class="modal" role="dialog">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Instructions</h3>
+        <p class="py-4">Consists of 20 questions of {{d['courseTitle']}} for MSE 1. There is no time limit. Click on
+          Start to start the session</p>
+        <div class="modal-action">
+          <label for="my_modal_{{ loop.index }}_1_1" class="btn">Not now</label>
+          <a href="/quiz/{{d['courseCode']}}/MSE1">
+            <button class="btn">Start</button></a>
+        </div>
+      </div>
+    </div>
+
+    <label for="my_modal_{{ loop.index }}_1_2" class="btn" style="margin: 1%;">MSE 2</label>
+    <input type="checkbox" id="my_modal_{{ loop.index }}_1_2" class="modal-toggle" />
+    <div class="modal" role="dialog">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Instructions</h3>
+        <p class="py-4">Consists of 20 questions of {{d['courseTitle']}} for MSE 2. There is no time limit. Click on
+          Start to start the session</p>
+        <div class="modal-action">
+          <label for="my_modal_{{ loop.index }}_1_2" class="btn">Not now</label>
+          <a href="/quiz/{{d['courseCode']}}/MSE2">
+            <button class="btn">Start</button></a>
+        </div>
+      </div>
+    </div>
+
+    <label for="my_modal_{{ loop.index }}_1_3" class="btn" style="margin: 1%;">SEE </label>
+    <input type="checkbox" id="my_modal_{{ loop.index }}_1_3" class="modal-toggle" />
+    <div class="modal" role="dialog">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Instructions</h3>
+        <p class="py-4">Consists of 40 questions of {{ d['courseTitle'] }} for SEE. There is no time limit. Click on
+          Start to start the session</p>
+        <div class="modal-action">
+          <label for="my_modal_{{ loop.index }}_1_3" class="btn">Not now</label>
+          <a href="/quiz/{{ d['courseCode'] }}/SEE">
+            <button class="btn">Start</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+<div class="divider divider-start" style="margin: 1%;">2nd year</div>
+{% for d in secondYears %}
+<div class="collapse collapse-arrow  bg-base-300" style="margin: 1%; max-width: 98%;">
+  <input type="checkbox" name="my-accordion-1" />
+  <div class="collapse-title text-xl font-medium">{{d["courseTitle"]}}</div>
+  <div class="collapse-content">
+
+    <label for="my_modal_{{ loop.index }}_2_1" class="btn" style="margin: 1%;">MSE 1</label>
+    <input type="checkbox" id="my_modal_{{ loop.index }}_2_1" class="modal-toggle" />
+    <div class="modal" role="dialog">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Instructions</h3>
+        <p class="py-4">Consists of 20 questions of {{d['courseTitle']}} for MSE 1. There is no time limit. Click on
+          Start to start the session</p>
+        <div class="modal-action">
+          <label for="my_modal_{{ loop.index }}_2_1" class="btn">Not now</label>
+          <a href="/quiz/{{d['courseCode']}}/MSE1">
+            <button class="btn">Start</button></a>
+        </div>
+      </div>
+    </div>
+    
+    <label for="my_modal_{{ loop.index }}_2_2" class="btn" style="margin: 1%;">MSE 2</label>
+    <input type="checkbox" id="my_modal_{{ loop.index }}_2_2" class="modal-toggle" />
+    <div class="modal" role="dialog">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Instructions</h3>
+        <p class="py-4">Consists of 20 questions of {{d['courseTitle']}} for MSE 2. There is no time limit. Click on
+          Start to start the session</p>
+        <div class="modal-action">
+          <label for="my_modal_{{ loop.index }}_2_2" class="btn">Not now</label>
+          <a href="/quiz/{{d['courseCode']}}/MSE2">
+            <button class="btn">Start</button></a>
+        </div>
+      </div>
+    </div>
+
+    <label for="my_modal_{{ loop.index }}_2_3" class="btn" style="margin: 1%;">SEE </label>
+    <input type="checkbox" id="my_modal_{{ loop.index }}_2_3" class="modal-toggle" />
+    <div class="modal" role="dialog">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Instructions</h3>
+        <p class="py-4">Consists of 40 questions of {{ d['courseTitle'] }} for SEE. There is no time limit. Click on
+          Start to start the session</p>
+        <div class="modal-action">
+          <label for="my_modal_{{ loop.index }}_2_3" class="btn">Not now</label>
+          <a href="/quiz/{{ d['courseCode'] }}/SEE">
+            <button class="btn">Start</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+<div class="divider divider-start" style="margin: 1%;">3rd year</div>
+{% for d in thirdYears %}
+<div class="collapse collapse-arrow  bg-base-300" style="margin: 1%; max-width: 98%;">
+  <input type="checkbox" name="my-accordion-1" />
+  <div class="collapse-title text-xl font-medium">{{d["courseTitle"]}}</div>
+  <div class="collapse-content">
+
+    <label for="my_modal_{{ loop.index }}_3_1" class="btn" style="margin: 1%;">MSE 1</label>
+    <input type="checkbox" id="my_modal_{{ loop.index }}_3_1" class="modal-toggle" />
+    <div class="modal" role="dialog">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Instructions</h3>
+        <p class="py-4">Consists of 20 questions of {{d['courseTitle']}} for MSE 1. There is no time limit. Click on
+          Start to start the session</p>
+        <div class="modal-action">
+          <label for="my_modal_{{ loop.index }}_3_1" class="btn">Not now</label>
+          <a href="/quiz/{{d['courseCode']}}/MSE1">
+            <button class="btn">Start</button></a>
+        </div>
+      </div>
+    </div>
+    
+    <label for="my_modal_{{ loop.index }}_3_2" class="btn" style="margin: 1%;">MSE 2</label>
+    <input type="checkbox" id="my_modal_{{ loop.index }}_3_2" class="modal-toggle" />
+    <div class="modal" role="dialog">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Instructions</h3>
+        <p class="py-4">Consists of 20 questions of {{d['courseTitle']}} for MSE 2. There is no time limit. Click on
+          Start to start the session</p>
+        <div class="modal-action">
+          <label for="my_modal_{{ loop.index }}_3_2" class="btn">Not now</label>
+          <a href="/quiz/{{d['courseCode']}}/MSE2">
+            <button class="btn">Start</button></a>
+        </div>
+      </div>
+    </div>
+
+    <label for="my_modal_{{ loop.index }}_3_3" class="btn" style="margin: 1%;">SEE </label>
+    <input type="checkbox" id="my_modal_{{ loop.index }}_3_3" class="modal-toggle" />
+    <div class="modal" role="dialog">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Instructions</h3>
+        <p class="py-4">Consists of 40 questions of {{ d['courseTitle'] }} for SEE. There is no time limit. Click on
+          Start to start the session</p>
+        <div class="modal-action">
+          <label for="my_modal_{{ loop.index }}_3_3" class="btn">Not now</label>
+          <a href="/quiz/{{ d['courseCode'] }}/SEE">
+            <button class="btn">Start</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+<div class="divider divider-start" style="margin: 1%;">4th year</div>
+{% for d in fourthYears %}
+<div class="collapse collapse-arrow  bg-base-300" style="margin: 1%; max-width: 98%;">
+  <input type="checkbox" name="my-accordion-1" />
+  <div class="collapse-title text-xl font-medium">{{d["courseTitle"]}}</div>
+  <div class="collapse-content">
+
+    <label for="my_modal_{{ loop.index }}_1" class="btn" style="margin: 1%;">MSE 1</label>
+    <input type="checkbox" id="my_modal_{{ loop.index }}_1" class="modal-toggle" />
+    <div class="modal" role="dialog">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Instructions</h3>
+        <p class="py-4">Consists of 20 questions of {{d['courseTitle']}} for MSE 1. There is no time limit. Click on
+          Start to start the session</p>
+        <div class="modal-action">
+          <label for="my_modal_{{ loop.index }}_1" class="btn">Not now</label>
+          <a href="/quiz/{{d['courseCode']}}/MSE1">
+            <button class="btn">Start</button></a>
+        </div>
+      </div>
+    </div>
+    
+    <label for="my_modal_{{ loop.index }}_2" class="btn" style="margin: 1%;">MSE 2</label>
+    <input type="checkbox" id="my_modal_{{ loop.index }}_2" class="modal-toggle" />
+    <div class="modal" role="dialog">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Instructions</h3>
+        <p class="py-4">Consists of 20 questions of {{d['courseTitle']}} for MSE 2. There is no time limit. Click on
+          Start to start the session</p>
+        <div class="modal-action">
+          <label for="my_modal_{{ loop.index }}_2" class="btn">Not now</label>
+          <a href="/quiz/{{d['courseCode']}}/MSE2">
+            <button class="btn">Start</button></a>
+        </div>
+      </div>
+    </div>
+
+    <label for="my_modal_{{ loop.index }}_3" class="btn" style="margin: 1%;">SEE </label>
+    <input type="checkbox" id="my_modal_{{ loop.index }}_3" class="modal-toggle" />
+    <div class="modal" role="dialog">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Instructions</h3>
+        <p class="py-4">Consists of 40 questions of {{ d['courseTitle'] }} for SEE. There is no time limit. Click on
+          Start to start the session</p>
+        <div class="modal-action">
+          <label for="my_modal_{{ loop.index }}_3" class="btn">Not now</label>
+          <a href="/quiz/{{ d['courseCode'] }}/SEE">
+            <button class="btn">Start</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+<div class="divider" style="font-size: large;">Extras</div>
+{% for d in extraDicts %}
+<div class="collapse collapse-arrow  bg-base-300" style="margin: 1%; max-width: 98%;">
+  <input type="checkbox" name="my-accordion-1" />
+  <div class="collapse-title text-xl font-medium">{{d["courseTitle"]}}</div>
+  <div class="collapse-content">
+    <label for="my_modal_{{ loop.index }}" class="btn" style="margin: 1%;">ATTEMPT</label>
+    <input type="checkbox" id="my_modal_{{ loop.index }}" class="modal-toggle" />
+    <div class="modal" role="dialog">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Instructions</h3>
+        <p class="py-4">Consists of 20 questions of {{d['courseTitle']}}. There is no time limit. Click on
+          Start to start the session</p>
+        <div class="modal-action">
+          <label for="my_modal_{{ loop.index }}" class="btn">Not now</label>
+          <a href="/quiz/{{d['courseCode']}}/QUESTIONS">
+            <button class="btn">Start</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

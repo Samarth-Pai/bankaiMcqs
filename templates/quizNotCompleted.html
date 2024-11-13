@@ -1,0 +1,19 @@
+{% extends "quiz.html" %}
+{% block notcompleted %}
+<div class="toast" id="tid" style="z-index: 998;"">
+    <div class="alert alert-warning">
+      <span>Please attempt all the questions!</span>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const toast = document.getElementById('tid');
+      setTimeout(() => {
+          toast.classList.add('hide');
+          setTimeout(() => {
+              toast.style.display = 'none';
+          }, 500); // wait for transition to finish
+      }, 2000); // 2000 milliseconds = 2 seconds
+  });
+</script>
+{% endblock %}

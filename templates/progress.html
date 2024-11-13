@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block start %}
+<h2 class="text-4xl font-extrabold" style="margin: auto; width: 90%; margin-top: 1%;">{{courseTitle}} {{courseCode}} {{mode}}</h2>
+<h3 class="text-3xl font-extrabold" style="margin: auto; width: 90%; margin-top: 1%;">Attempted at {{dateAttempted.strftime("%I:%M %p, %A %d/%m/%G")}}</h3>
+<h3 class="text-3xl font-extrabold" style="margin: auto; width: 90%; margin-top: 1%;">
+    Score: {{points}}/{{maxi}} <progress class="progress progress-info w-56" value="{{points}}" max="{{maxi}}"></progress>
+</h3>
+{% for en, question in questions%}
+<div class="card card-bordered bg-base-100 w-96 shadow-2xl" style="margin: auto; width: 90%;">
+    <div class="card-body">
+        <h2 style="font-size: large"><b>{{en}}. {{question["questionTitle"] | safe}}</b></h2>
+    </div>
+    <button
+        class="no-animation bg-base-300 flex justify-start {% if question['answer']=='A' %}btn-outline btn-success {% elif question['attemptedAnswer']=='A' %} btn-outline btn-error {% endif %}"
+        style="margin: 0.5%; border-radius: 10px; padding: 10px;{% if question['answer']=='A' %}border: 2px solid #00935f; {% elif question['attemptedAnswer']=='A' %} border: 2px solid #FF0000; {% endif %}">A. {{question["optionA"] | safe}}</button>
+    <button
+        class="no-animation bg-base-300 flex justify-start {% if question['answer']=='B' %}btn-outline btn-success {% elif question['attemptedAnswer']=='B' %} btn-outline btn-error {% endif %}"
+        style="margin: 0.5%; border-radius: 10px; padding: 10px;{% if question['answer']=='B' %}border: 2px solid #00935f; {% elif question['attemptedAnswer']=='B' %} border: 2px solid #FF0000; {% endif %}">B. {{question["optionB"] | safe}}</button>
+    <button
+        class="no-animation bg-base-300 flex justify-start {% if question['answer']=='C' %}btn-outline btn-success {% elif question['attemptedAnswer']=='C' %} btn-outline btn-error {% endif %}"
+        style="margin: 0.5%; border-radius: 10px; padding: 10px;{% if question['answer']=='C' %}border: 2px solid #00935f; {% elif question['attemptedAnswer']=='C' %} border: 2px solid #FF0000; {% endif %}">C. {{question["optionC"] | safe}}</button>
+    <button
+        class="no-animation bg-base-300 flex justify-start {% if question['answer']=='D' %}btn-outline btn-success {% elif question['attemptedAnswer']=='D' %} btn-outline btn-error {% endif %}"
+        style="margin: 0.5%; border-radius: 10px; padding: 10px;{% if question['answer']=='D' %}border: 2px solid #00935f; {% elif question['attemptedAnswer']=='D' %} border: 2px solid #FF0000; {% endif %}">D. {{question["optionD"] | safe}}</button>
+</div><br>
+{% endfor %}
+
+{% endblock %}

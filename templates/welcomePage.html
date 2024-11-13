@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        body{
+            font-family: "Bebas Neue", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+    </style>
+</head>
+<body style="overflow: hidden; background: #12647B">
+    <!-- Main Container -->
+    <div style="width: 100vw; height: 100vh; background: #12647B; padding-top: 1%;">
+        <!-- Inner Container -->
+        
+            <!-- Content Wrapper -->
+            <div style="width: 95%; height: 90%; position: relative; background: #b0f0ff; border-radius: 20px; margin-left: 2%; margin-top: 2%;">
+                <!-- Header Text -->
+                <div style="position: absolute; top: 10%; left: 5%; color: #12647b; font-size: 6vw; font-weight: normal; ">
+                    Improve Your<br/>Mind
+                </div>
+                <!-- Description Text -->
+                <div style="position: absolute; top: 50%; left: 5%; width: 40%; height: 20%; color: black; font-size: 2vw; font-weight: normal; ">
+                    Do you want to excel in your exams? <br/>We are there to provide you important mcq based questions so that you guys can excel your exams
+                </div>
+                <!-- Image -->
+                <img style="position: absolute; top: 10%; right: 5%; width: 30%;" src="{{ url_for('static', filename='brain.png') }}" />
+                <!-- Get Started Button -->
+                <div style="position: absolute; bottom: 10%; left: 50%; width: 30%; background: #042a35; border-radius: 30px; display: flex; justify-content: center; align-items: center;">
+                    <a href="/login">
+                    <button style="opacity: 1.0; color: white; font-size: 4vw; font-weight: normal; font-family: 'Bebas Neue'; background-color: #042a35;">Get Started</button>
+                    </a>
+                </div>
+            </div>
+    </div>
+</body>
+</html>

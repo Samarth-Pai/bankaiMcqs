@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='signupStyle.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>        
+    <title>Sign up</title>
+</head>
+
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-in">
+            <form method="POST" action="/signup">
+                <h1>Sign up</h1>
+                <input type="text" placeholder="Username" name="name" value="{{name}}">
+                <input type="email" placeholder="Email" name="emailId" value="{{emailId}}">
+                <input type="password" placeholder="Password" name="password" value="{{password}}">
+                <input type="password" placeholder="Confirm password" name="confirmPassword" value="{{confirmPassword}}">
+                {% block invalid %}
+                {% endblock %}
+                <a href="/login">
+                 <span>
+                    Already have an account? Log in
+                 </span>
+                </a>
+                <button>Sign In</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

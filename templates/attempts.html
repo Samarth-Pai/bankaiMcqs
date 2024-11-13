@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block start %}
+<div class="grid gap-4 grod-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    {% for en, attempt in history %}
+    <div class="card bg-base-100 w-96 shadow-xl" style="margin: auto; max-width: auto;">
+        <div class="card-body">
+            <h2 class="card-title">{{attempt["courseTitle"]}}</h2>
+            <p>{{attempt["dateAttempted"].strftime("%I:%M %p, %A %d/%m/%G")}}</p>
+            {{attempt["points"]}}/{{attempt["maxi"]}} <progress class="progress progress-info w-56" value="{{attempt['points']}}" max="{{attempt['maxi']}}"></progress>
+            <div class="card-actions justify-end">
+                <a href="/progress/{{en}}">
+                <button class="btn btn-primary">Preview</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "account.html" %}
+{% block cantapply %}
+<div class="toast" id="tid" style="z-index: 998;"">
+    <div class="alert alert-warning">
+      <span>Don't leave anything blank!</span>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const toast = document.getElementById('tid');
+      setTimeout(() => {
+          toast.classList.add('hide');
+          setTimeout(() => {
+              toast.style.display = 'none';
+          }, 500); // wait for transition to finish
+      }, 2000); // 2000 milliseconds = 2 seconds
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="{{preferredTheme}}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+  <title>{{pageTitle}}</title>
+  <style>
+    input[type="radio"]:checked {
+      background-color: #00935f;
+      border:2px solid #00935f;
+      color: #00935f;
+  }
+    .toast {
+      transition: opacity 0.5s;
+  }
+
+    .toast.hide {
+        opacity: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="navbar backdrop-filter backdrop-blur shadow-xl" style="position: sticky; top: 0; z-index: 999;">
+    <div class="navbar-start">
+    </div>
+    <div class="navbar-center">
+      <a href="/subjects" class="btn btn-ghost text-xl">{{name}}</a>
+    </div>
+    <div class="navbar-end">
+      <div class="dropdown dropdown-end">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder">
+          <div class="w-10 rounded-full bg-neutral text-neutral-content w-12 rounded-full">
+            <span>{{name[0].upper()}}</span>
+          </div>
+        </div>
+        <ul
+          tabindex="0"
+          class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+          <li><a href="/account">Account</a></li>
+          <li><a href="/themes">Themes</a></li>
+          <li><a href="/attempts">Attempts</a></li>
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  </div>
+  {% block start%}
+  {% endblock %}
+</body>
+
+</html>
