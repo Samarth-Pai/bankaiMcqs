@@ -14,7 +14,7 @@ body{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 60vh;
+    height: 100vh;
 }
 
 .container {
@@ -22,17 +22,10 @@ body{
     border-radius: 30px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
     position: relative;
-    overflow: visible; /* Changed from hidden to visible */
-    height: fit-content; /* Un-commented */
+    overflow: hidden; /* Changed from hidden to visible */
     width: 400px;
     max-width: 100%;
-    min-height: fit-content; /* Changed from min-content */
-}
-
-.form-wrapper {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 30px;
+    min-height: 300px; /* Changed from min-content */
 }
 
 .container p{
