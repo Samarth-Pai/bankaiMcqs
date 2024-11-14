@@ -14,18 +14,25 @@ body{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 100vh;
+    height: 60vh;
 }
 
-.container{
+.container {
     background-color: #fff;
     border-radius: 30px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
     position: relative;
-    overflow: hidden;
+    overflow: visible; /* Changed from hidden to visible */
+    height: fit-content; /* Un-commented */
     width: 400px;
     max-width: 100%;
-    min-height: 300px;
+    min-height: fit-content; /* Changed from min-content */
+}
+
+.form-wrapper {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 30px;
 }
 
 .container p{

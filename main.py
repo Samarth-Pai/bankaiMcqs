@@ -80,11 +80,16 @@ def signup():
         
         users.insert_one({
             "name": name,
-            "email": emailId,
+            "emailId": emailId,
             "password": password,
             "accountCreated": dt,
-            "preferredTheme": "default"
+            "preferredTheme": "default",
+            "history": []
         })
+        
+        session["name"] = name
+        session["emailId"] = emailId
+        session["preferredTheme"] = "default"
         
         return redirect("/subjects")
     return render_template("signupPg.html")
