@@ -100,7 +100,7 @@ def quiz(courseCode: str, mode: str):
         return redirect("/login")
     global questionss
     if request.method=="POST":
-        if ((mode.startswith("MSE") or mode=="QUESTIONS") and len(request.form)<20) or (mode=="SEE" and len(request.form)<40):
+        if ((mode.startswith("MSE") or mode=="QUESTIONS") and len(request.form)<20) or (mode=="SEE" and len(request.form)<30):
             print(request.form, len(request.form))
             return render_template("quizNotCompleted.html", **session, pageTitle = "Quiz", courseCode = courseCode, mode = mode, questions = enumerate(questionss, 1), attemptedQuestions = {ObjectId(k):v for k, v in request.form.items()})
         points = 0
@@ -110,22 +110,27 @@ def quiz(courseCode: str, mode: str):
             "courseTitle":  extraDB.find_one({"courseCode": courseCode})["courseTitle"] if mode=="QUESTIONS" else subjectsDB.find_one({"courseCode": courseCode})["courseTitle"],
             "courseCode": courseCode,
             "mode": mode,
-            "maxi": 20 if mode.startswith("MSE") or mode=="QUESTIONS" else 40,
+            "maxi": 20 if mode.startswith("MSE") or mode=="QUESTIONS" else 30,
             "dateAttempted": dt,
         }
         
         requestedForm = {ObjectId(k):v for k, v in request.form.items()}
         for question in questionss:
             question["attemptedAnswer"] = requestedForm[question["_id"]]
-            points+=question["answer"]==question["attemptedAnswer"] 
+            points+=question["answer"]==question["attemptedAnswer"]
         sessionDetails["sessionQuestions"] = questionss
         sessionDetails["points"] = points
         history.append(sessionDetails)
         users.find_one_and_update({"emailId": session["emailId"]}, {"$set": {"history": history}})
         return redirect("/progress/last")
-        
-    questions = db[f"{courseCode}/{mode}"].find({})
-    questions = list(questions[:20]) # randomize this
+    
+    questions = []
+    if mode=="SEE":
+        mse1q, mse2q, seeq = db[f"{courseCode}/MSE1"].find({}), db[f"{courseCode}/MSE2"].find({}), db[f"{courseCode}/SEE"].find({})
+        questions = list(mse1q[:10]) + list(mse2q[:10]) + list(seeq[:10])
+    else:
+        questions = db[f"{courseCode}/{mode}"].find({})
+        questions = list(questions[:20]) 
     questionss = questions.copy()
     return render_template("quiz.html", **session, pageTitle = "Quiz", courseCode = courseCode, mode = mode, questions = enumerate(questions, 1), attemptedQuestions = {})
 
