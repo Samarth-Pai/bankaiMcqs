@@ -3,7 +3,7 @@ from flask import Flask, request, redirect, render_template, session, url_for
 from flask_pymongo import MongoClient, ObjectId
 from dotenv import load_dotenv
 from datetime import datetime, timedelta, UTC
-import os, re
+import os, re, random
 load_dotenv()
 
 app =   Flask(__name__)
@@ -94,6 +94,32 @@ def signup():
         return redirect("/subjects")
     return render_template("signupPg.html")
 
+def randomizeOptions(questionDict: dict):
+    optionA, optionB, optionC, optionD = questionDict["optionA"], questionDict["optionB"], questionDict["optionC"], questionDict["optionD"]
+    randomOptions = random.sample([optionA, optionB, optionC, optionD], 4)
+    correctOption = [optionA, optionB, optionC, optionD]["ABCD".index(questionDict["answer"])]
+    answer = "ABCD"[randomOptions.index(correctOption)]
+    questionDict["optionA"], questionDict["optionB"], questionDict["optionC"], questionDict["optionD"] = randomOptions
+    questionDict["answer"] = answer
+    return questionDict
+    
+def addLists(*l):
+    res = []
+    for listt in l:
+        res.extend(listt)
+    return res
+def randomizeQuestions(courseCode, mode):
+    questions = []
+    if mode=="SEE":
+        mse1q, mse2q, seeq = list(db[f"{courseCode}/MSE1"].find({})), list(db[f"{courseCode}/MSE2"].find({})), list(db[f"{courseCode}/SEE"].find({}))
+        # questions = list(mse1q[:10]) + list(mse2q[:10]) + list(seeq[:10])
+        questions = list(map(randomizeOptions, random.sample(random.sample(list(mse1q), 10) + random.sample(list(mse2q), 10) + random.sample(list(seeq), 10), 30)))
+        
+    else:
+        questions = db[f"{courseCode}/{mode}"].find({})
+        questions = list(map(randomizeOptions, random.sample(list(questions), 20)))
+    return questions
+
 @app.route("/quiz/<courseCode>/<mode>", methods = ["GET", "POST"])
 def quiz(courseCode: str, mode: str):
     if not authorized():
@@ -124,13 +150,7 @@ def quiz(courseCode: str, mode: str):
         users.find_one_and_update({"emailId": session["emailId"]}, {"$set": {"history": history}})
         return redirect("/progress/last")
     
-    questions = []
-    if mode=="SEE":
-        mse1q, mse2q, seeq = db[f"{courseCode}/MSE1"].find({}), db[f"{courseCode}/MSE2"].find({}), db[f"{courseCode}/SEE"].find({})
-        questions = list(mse1q[:10]) + list(mse2q[:10]) + list(seeq[:10])
-    else:
-        questions = db[f"{courseCode}/{mode}"].find({})
-        questions = list(questions[:20]) 
+    questions = randomizeQuestions(courseCode, mode)
     questionss = questions.copy()
     return render_template("quiz.html", **session, pageTitle = "Quiz", courseCode = courseCode, mode = mode, questions = enumerate(questions, 1), attemptedQuestions = {})
 
