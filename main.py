@@ -117,6 +117,7 @@ def otp():
     
     if request.method == "POST":
         if request.form.get("otpPin").strip()!=otpCode:
+            print(otpCode, request.form.get("otpPin"))
             return render_template("otpInvalid.html", **session, pageTitle = "Senkaimon 2FA", otpEmailId = otpEmailId)
         
         otpMode = False
