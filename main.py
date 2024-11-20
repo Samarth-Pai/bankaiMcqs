@@ -3,7 +3,7 @@ from flask import Flask, request, redirect, render_template, session, url_for
 from flask_pymongo import MongoClient, ObjectId
 from dotenv import load_dotenv
 from datetime import datetime, timedelta, UTC
-import os, re, random
+import os, re, random, asyncio, aiosmtplib
 load_dotenv()
 
 app =   Flask(__name__)
@@ -15,6 +15,11 @@ users = db["usersLogin"]
 subjectsDB = db["subjects"]
 extraDB = db["extras"]
 questionss = []
+otpMode = False
+otpEmailId = ""
+otpName = ""
+otpPassword = ""
+otpCode = ""
 
 def authorized():
     return bool(session.get("emailId"))
@@ -60,8 +65,25 @@ def logout():
     session.clear()
     return redirect("/")
 
+async def mailer(to,subject,msg):
+    sender = os.getenv("EMAIL_SENDER")
+    mailserver = os.getenv("EMAIL_SERVER")
+    s = aiosmtplib.SMTP(hostname=mailserver, port=587)
+    print("Connecting...")
+    await s.connect()
+    print("Logging in...")
+    await s.login(sender, os.getenv("SMTP_PASSW"))
+    print("Login successfull.")
+    print("Sending email..")
+    await s.sendmail(sender,to,f"Subject: {subject}\nTo: {to}\nFrom: {sender}\n\n{msg}")
+    print("Mail sent successfully")
+    
+async def mailDriver(to, subject, msg):
+    await mailer(to, subject, msg)
+
 @app.route("/signup", methods = ["GET", "POST"])
 def signup():
+    global otpName, otpEmailId, otpCode, otpMode, otpCode, otpPassword
     if request.method=="POST":
         name = request.form.get("name")
         emailId = request.form.get("emailId")
@@ -76,23 +98,47 @@ def signup():
         elif password!=confirmPassword:
             return render_template("signupPasswordNotSame.html", name=name, emailId = emailId, password = password, confirmPassword = confirmPassword)
         
+        print("Async await mode..")
+        otpMode = True
+        otpName = name
+        otpEmailId = emailId
+        otpPassword = password
+        otpCode = str(random.randrange(100000, 1000000))
+        asyncio.run(mailDriver(otpEmailId, "Bankai MCQs Email Verification", f"Your OTP for Bankai MCQs web application is {otpCode}"))
+        
+        return redirect("/otp")
+    return render_template("signupPg.html")
+
+@app.route("/otp", methods = ["GET", "POST"])
+def otp():
+    global otpName, otpEmailId, otpCode, otpMode, otpCode, otpPassword
+    if not otpMode:
+        return redirect("/login")
+    
+    if request.method == "POST":
+        if request.form.get("otpPin").strip()!=otpCode:
+            return render_template("otpInvalid.html", **session, pageTitle = "Senkaimon 2FA", otpEmailId = otpEmailId)
+        
+        otpMode = False
         dt = datetime.now(UTC) + timedelta(hours= 5, minutes = 30)
         
         users.insert_one({
-            "name": name,
-            "emailId": emailId,
-            "password": password,
+            "name": otpName,
+            "emailId": otpEmailId,
+            "password": otpPassword,
             "accountCreated": dt,
             "preferredTheme": "default",
             "history": []
         })
         
-        session["name"] = name
-        session["emailId"] = emailId
+        session["name"] = otpName
+        session["emailId"] = otpEmailId
         session["preferredTheme"] = "default"
         
         return redirect("/subjects")
-    return render_template("signupPg.html")
+        
+    return render_template("otp.html", **session, pageTitle = "Senkaimon 2FA", otpEmailId = otpEmailId)
+    
 
 def randomizeOptions(questionDict: dict):
     optionA, optionB, optionC, optionD = questionDict["optionA"], questionDict["optionB"], questionDict["optionC"], questionDict["optionD"]
@@ -108,6 +154,7 @@ def addLists(*l):
     for listt in l:
         res.extend(listt)
     return res
+
 def randomizeQuestions(courseCode, mode):
     questions = []
     if mode=="SEE":

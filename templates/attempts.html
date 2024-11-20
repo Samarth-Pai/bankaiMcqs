@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block start %}
+{% if not history %}
+    <h2 class="text-4xl font-extrabold" style="margin: auto; width: 90%; margin-top: 1%;">No attempts yet. Try attempting one...</h2>
+{% endif %}
 <div class="grid gap-4 grod-cols-1 md:grid-cols-2 lg:grid-cols-3">
     {% for en, attempt in history %}
     <div class="card bg-base-100 w-96 shadow-xl" style="margin: auto; max-width: auto;">
