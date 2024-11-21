@@ -15,13 +15,6 @@ users = db["usersLogin"]
 subjectsDB = db["subjects"]
 extraDB = db["extras"]
 questionss = []
-class otpModel():
-    otpMode: bool = False
-    name: str = ""
-    emailId: str =  ""
-    password: str = ""
-    code: str = ""
-otpObj = otpModel()
 
 def authorized():
     return bool(session.get("emailId"))
@@ -100,45 +93,42 @@ def signup():
             return render_template("signupPasswordNotSame.html", name=name, emailId = emailId, password = password, confirmPassword = confirmPassword)
         
         print("Async await mode..")
-        otpObj.otpMode = True
-        otpObj.name = name
-        otpObj.emailId = emailId
-        otpObj.password = password
-        otpObj.code = str(random.randrange(100000, 1000000))
-        asyncio.run(mailDriver(otpObj.emailId, "Bankai MCQs Email Verification", f"Your OTP for Bankai MCQs web application is {otpObj.code}"))
+        session["otp"] = {"otpMode": True, "name": name, "emailId": emailId, "password": password, "code": str(random.randrange(100000, 1000000))}
+        asyncio.run(mailDriver(session["otp"]["emailId"], "Bankai MCQs Email Verification", f"Your OTP for Bankai MCQs web application is {session["otp"]["code"]}"))
         
         return redirect("/otp")
     return render_template("signupPg.html")
 
 @app.route("/otp", methods = ["GET", "POST"])
 def otp():
-    if not otpObj.otpMode:
+    if not session["otp"]["otpMode"]:
         return redirect("/login")
     
     if request.method == "POST":
-        if request.form.get("otpPin").strip()!=otpObj.code:
-            print(otpObj.code, request.form.get("otpPin"))
-            return render_template("otpInvalid.html", **session, pageTitle = "Senkaimon 2FA", otpEmailId = otpObj.emailId)
+        if request.form.get("otpPin").strip()!=session["otp"]["code"]:
+            print(session["otp"]["code"], request.form.get("otpPin"))
+            return render_template("otpInvalid.html", **session, pageTitle = "Senkaimon 2FA", otpEmailId = session["otp"]["emailId"])
         
-        otpObj.mode = False
+        session["otp"]["otpMode"] = False
         dt = datetime.now(UTC) + timedelta(hours= 5, minutes = 30)
         
         users.insert_one({
-            "name": otpObj.name,
-            "emailId": otpObj.emailId,
-            "password": otpObj.password,
+            "name": session["otp"]["name"],
+            "emailId": session["otp"]["emailId"],
+            "password": session["otp"]["password"],
             "accountCreated": dt,
             "preferredTheme": "default",
             "history": []
         })
         
-        session["name"] = otpObj.name
-        session["emailId"] = otpObj.emailId
+        session["name"] = session["otp"]["name"]
+        session["emailId"] = session["otp"]["emailId"]
         session["preferredTheme"] = "default"
+        session.pop("otp")
         
         return redirect("/subjects")
         
-    return render_template("otp.html", **session, pageTitle = "Senkaimon 2FA", otpEmailId = otpObj.emailId)
+    return render_template("otp.html", **session, pageTitle = "Senkaimon 2FA", otpEmailId = session["otp"]["emailId"])
     
 
 def randomizeOptions(questionDict: dict):
