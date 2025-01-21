@@ -38,6 +38,7 @@
       </div>
     </div>
 
+    {% if not d.nonSee %}
     <label for="my_modal_{{ loop.index }}_1_3" class="btn" style="margin: 1%;">SEE </label>
     <input type="checkbox" id="my_modal_{{ loop.index }}_1_3" class="modal-toggle" />
     <div class="modal" role="dialog">
@@ -53,6 +54,7 @@
         </div>
       </div>
     </div>
+    {% endif %}
   </div>
 </div>
 {% endfor %}
@@ -94,6 +96,7 @@
       </div>
     </div>
 
+    {% if not d.nonSee %}
     <label for="my_modal_{{ loop.index }}_2_3" class="btn" style="margin: 1%;">SEE </label>
     <input type="checkbox" id="my_modal_{{ loop.index }}_2_3" class="modal-toggle" />
     <div class="modal" role="dialog">
@@ -109,6 +112,7 @@
         </div>
       </div>
     </div>
+    {% endif %}
   </div>
 </div>
 {% endfor %}
@@ -150,6 +154,7 @@
       </div>
     </div>
 
+    {% if not d.nonSee %}
     <label for="my_modal_{{ loop.index }}_3_3" class="btn" style="margin: 1%;">SEE </label>
     <input type="checkbox" id="my_modal_{{ loop.index }}_3_3" class="modal-toggle" />
     <div class="modal" role="dialog">
@@ -165,6 +170,7 @@
         </div>
       </div>
     </div>
+    {% endif %}
   </div>
 </div>
 {% endfor %}
@@ -206,6 +212,7 @@
       </div>
     </div>
 
+    {% if not d.nonSee %}
     <label for="my_modal_{{ loop.index }}_3" class="btn" style="margin: 1%;">SEE </label>
     <input type="checkbox" id="my_modal_{{ loop.index }}_3" class="modal-toggle" />
     <div class="modal" role="dialog">
@@ -221,6 +228,7 @@
         </div>
       </div>
     </div>
+    {% endif %}
   </div>
 </div>
 {% endfor %}
