@@ -7,7 +7,7 @@
   <input type="checkbox" name="my-accordion-1" />
   <div class="collapse-title text-xl font-medium">{{d["courseTitle"]}}</div>
   <div class="collapse-content">
-
+    {% if d.MSE1 %}
     <label for="my_modal_{{ loop.index }}_1_1" class="btn" style="margin: 1%;">MSE 1</label>
     <input type="checkbox" id="my_modal_{{ loop.index }}_1_1" class="modal-toggle" />
     <div class="modal" role="dialog">
@@ -22,7 +22,13 @@
         </div>
       </div>
     </div>
+    {% else %}
+    <button class="btn" disabled="disabled" style="margin: 1%;">
+      MSE 1
+    </button>
+    {% endif %}
 
+    {% if d.MSE2 %}
     <label for="my_modal_{{ loop.index }}_1_2" class="btn" style="margin: 1%;">MSE 2</label>
     <input type="checkbox" id="my_modal_{{ loop.index }}_1_2" class="modal-toggle" />
     <div class="modal" role="dialog">
@@ -37,8 +43,14 @@
         </div>
       </div>
     </div>
+    {% else %}
+    <button class="btn" disabled="disabled" style="margin: 1%;">
+      MSE 2
+    </button>
+    {% endif %}
 
     {% if not d.nonSee %}
+    {% if d.SEE %}
     <label for="my_modal_{{ loop.index }}_1_3" class="btn" style="margin: 1%;">SEE </label>
     <input type="checkbox" id="my_modal_{{ loop.index }}_1_3" class="modal-toggle" />
     <div class="modal" role="dialog">
@@ -54,6 +66,11 @@
         </div>
       </div>
     </div>
+    {% else %}
+    <button class="btn" disabled="disabled" style="margin: 1%;">
+      SEE
+    </button>
+    {% endif %}
     {% endif %}
   </div>
 </div>
@@ -66,6 +83,7 @@
   <div class="collapse-title text-xl font-medium">{{d["courseTitle"]}}</div>
   <div class="collapse-content">
 
+    {% if d.MSE1 %}
     <label for="my_modal_{{ loop.index }}_2_1" class="btn" style="margin: 1%;">MSE 1</label>
     <input type="checkbox" id="my_modal_{{ loop.index }}_2_1" class="modal-toggle" />
     <div class="modal" role="dialog">
@@ -80,7 +98,13 @@
         </div>
       </div>
     </div>
+    {% else %}
+    <button class="btn" disabled="disabled" style="margin: 1%;">
+      MSE 1
+    </button>
+    {% endif %}
     
+    {% if d.MSE2 %}
     <label for="my_modal_{{ loop.index }}_2_2" class="btn" style="margin: 1%;">MSE 2</label>
     <input type="checkbox" id="my_modal_{{ loop.index }}_2_2" class="modal-toggle" />
     <div class="modal" role="dialog">
@@ -95,8 +119,14 @@
         </div>
       </div>
     </div>
+    {% else %}
+    <button class="btn" disabled="disabled" style="margin: 1%;">
+      MSE 2
+    </button>
+    {% endif %}
 
     {% if not d.nonSee %}
+    {% if d.SEE %}
     <label for="my_modal_{{ loop.index }}_2_3" class="btn" style="margin: 1%;">SEE </label>
     <input type="checkbox" id="my_modal_{{ loop.index }}_2_3" class="modal-toggle" />
     <div class="modal" role="dialog">
@@ -112,6 +142,11 @@
         </div>
       </div>
     </div>
+    {% else %}
+    <button class="btn" disabled="disabled" style="margin: 1%;">
+      MSE 2
+    </button>
+    {% endif %}
     {% endif %}
   </div>
 </div>
@@ -124,6 +159,7 @@
   <div class="collapse-title text-xl font-medium">{{d["courseTitle"]}}</div>
   <div class="collapse-content">
 
+    {% if d.MSE1 %}
     <label for="my_modal_{{ loop.index }}_3_1" class="btn" style="margin: 1%;">MSE 1</label>
     <input type="checkbox" id="my_modal_{{ loop.index }}_3_1" class="modal-toggle" />
     <div class="modal" role="dialog">
@@ -138,7 +174,13 @@
         </div>
       </div>
     </div>
+    {% else %}
+    <button class="btn" disabled="disabled" style="margin: 1%;">
+      MSE 1
+    </button>
+    {% endif %}
     
+    {% if d.MSE2 %} 
     <label for="my_modal_{{ loop.index }}_3_2" class="btn" style="margin: 1%;">MSE 2</label>
     <input type="checkbox" id="my_modal_{{ loop.index }}_3_2" class="modal-toggle" />
     <div class="modal" role="dialog">
@@ -153,8 +195,14 @@
         </div>
       </div>
     </div>
+    {% else %}
+    <button class="btn" disabled="disabled" style="margin: 1%;">
+      MSE 2
+    </button>
+    {% endif %}
 
     {% if not d.nonSee %}
+    {% if d.SEE %}
     <label for="my_modal_{{ loop.index }}_3_3" class="btn" style="margin: 1%;">SEE </label>
     <input type="checkbox" id="my_modal_{{ loop.index }}_3_3" class="modal-toggle" />
     <div class="modal" role="dialog">
@@ -170,6 +218,11 @@
         </div>
       </div>
     </div>
+    {% else %}
+    <button class="btn" disabled="disabled" style="margin: 1%;">
+      SEE
+    </button>
+    {% endif %}
     {% endif %}
   </div>
 </div>
@@ -182,6 +235,7 @@
   <div class="collapse-title text-xl font-medium">{{d["courseTitle"]}}</div>
   <div class="collapse-content">
 
+    {% if d.MSE1 %}
     <label for="my_modal_{{ loop.index }}_1" class="btn" style="margin: 1%;">MSE 1</label>
     <input type="checkbox" id="my_modal_{{ loop.index }}_1" class="modal-toggle" />
     <div class="modal" role="dialog">
@@ -196,7 +250,13 @@
         </div>
       </div>
     </div>
+    {% else %}
+    <button class="btn" disabled="disabled" style="margin: 1%;">
+      MSE 1
+    </button>
+    {% endif %}
     
+    {% if d.MSE2 %}
     <label for="my_modal_{{ loop.index }}_2" class="btn" style="margin: 1%;">MSE 2</label>
     <input type="checkbox" id="my_modal_{{ loop.index }}_2" class="modal-toggle" />
     <div class="modal" role="dialog">
@@ -211,8 +271,14 @@
         </div>
       </div>
     </div>
+    {% else %}
+    <button class="btn" disabled="disabled" style="margin: 1%;">
+      MSE 2
+    </button>
+    {% endif %}
 
     {% if not d.nonSee %}
+    {% if d.SEE %}
     <label for="my_modal_{{ loop.index }}_3" class="btn" style="margin: 1%;">SEE </label>
     <input type="checkbox" id="my_modal_{{ loop.index }}_3" class="modal-toggle" />
     <div class="modal" role="dialog">
@@ -228,6 +294,11 @@
         </div>
       </div>
     </div>
+    {% else %}
+    <button class="btn" disabled="disabled" style="margin: 1%;">
+      SEE
+    </button>
+    {% endif %}
     {% endif %}
   </div>
 </div>
