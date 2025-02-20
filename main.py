@@ -8,6 +8,8 @@ load_dotenv()
 
 app =   Flask(__name__)
 app.secret_key = os.getenv("SESSION_SECRET_KEY")
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
 client = MongoClient(os.getenv("CONNECTION_STRING"))
 db = client["mcqDB"]
