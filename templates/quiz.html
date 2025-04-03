@@ -2,44 +2,52 @@
 {% block start %}
 {% block notcompleted %}
 {% endblock %}
-{% for en, question in questions %}
 <form action="/quiz/{{courseCode}}/{{mode}}" method="post">
-<div class="card card-bordered bg-base-100 w-96 shadow-2xl" style="margin: auto; width: 90%;">
-    <div class="card-body">
-        <h2 style="font-size: large"><b>{{en}}. {{question["questionTitle"] | safe}}</b></h2>
-    </div>
-    <div class="form-control bg-base-300" style="margin: 0.5%; border-radius: 10px; padding: 5px;">
-        <label class="label cursor-pointer">
-            <span class="label-text" style="font-size: 17px;">A. {{question["optionA"] | safe}}</span>
-            <input type="radio" name="{{question['_id']}}" class="radio" value="A" {% if attemptedQuestions.get(question['_id']) and attemptedQuestions[question['_id']]=='A' %}checked{% endif %}/>
-        </label>
-    </div>
-    <div class="form-control bg-base-300" style="margin: 0.5%; border-radius: 10px; padding: 5px;">
-        <label class="label cursor-pointer">
-            <span class="label-text" style="font-size: 17px;">B. {{question["optionB"] | safe}}</option></span>
-            <input type="radio" name="{{question['_id']}}" class="radio" value="B" {% if attemptedQuestions.get(question['_id']) and attemptedQuestions[question['_id']]=='B' %}checked{% endif %}/>
-        </label>
-    </div>
-    <div class="form-control bg-base-300" style="margin: 0.5%; border-radius: 10px; padding: 5px;">
-        <label class="label cursor-pointer">
-            <span class="label-text" style="font-size: 17px;">C. {{question["optionC"] | safe}}</option></span>
-            <input type="radio" name="{{question['_id']}}" class="radio" value="C" {% if attemptedQuestions.get(question['_id']) and attemptedQuestions[question['_id']]=='C' %}checked{% endif %}/>
-        </label>
-    </div>
-    <div class="form-control bg-base-300" style="margin: 0.5%; border-radius: 10px; padding: 5px;">
-        <label class="label cursor-pointer">
-            <span class="label-text" style="font-size: 17px;">D. {{question["optionD"] | safe}}</option></span>
-            <input type="radio" name="{{question['_id']}}" class="radio" value="D" {% if attemptedQuestions.get(question['_id']) and attemptedQuestions[question['_id']]=='D' %}checked{% endif %}/>
-        </label>
-    </div>
-    <div>
-    </div>
-</div><br>
-{% endfor %}
-<div style="margin-left: 5%; margin-bottom: 5%;">
+    {% for en, question in questions %}
+    <div class="card card-bordered bg-base-100 w-96 shadow-2xl" style="margin: auto; width: 90%;">
+        <div class="card-body">
+            <h2 style="font-size: large"><b>{{en}}. {{question["questionTitle"] | safe}}</b></h2>
+        </div>
+        <div class="form-control bg-base-300" style="margin: 0.5%; border-radius: 10px; padding: 5px;">
+            <label class="label cursor-pointer">
+                <span class="label-text" style="font-size: 17px;">A. {{question["optionA"] | safe}}</span>
+                <input type="radio" name="{{question['_id']}}" class="radio" value="A" {% if
+                    attemptedQuestions.get(question['_id']) and attemptedQuestions[question['_id']]=='A' %}checked{%
+                    endif %} />
+            </label>
+        </div>
+        <div class="form-control bg-base-300" style="margin: 0.5%; border-radius: 10px; padding: 5px;">
+            <label class="label cursor-pointer">
+                <span class="label-text" style="font-size: 17px;">B. {{question["optionB"] | safe}}</option></span>
+                <input type="radio" name="{{question['_id']}}" class="radio" value="B" {% if
+                    attemptedQuestions.get(question['_id']) and attemptedQuestions[question['_id']]=='B' %}checked{%
+                    endif %} />
+            </label>
+        </div>
+        <div class="form-control bg-base-300" style="margin: 0.5%; border-radius: 10px; padding: 5px;">
+            <label class="label cursor-pointer">
+                <span class="label-text" style="font-size: 17px;">C. {{question["optionC"] | safe}}</option></span>
+                <input type="radio" name="{{question['_id']}}" class="radio" value="C" {% if
+                    attemptedQuestions.get(question['_id']) and attemptedQuestions[question['_id']]=='C' %}checked{%
+                    endif %} />
+            </label>
+        </div>
+        <div class="form-control bg-base-300" style="margin: 0.5%; border-radius: 10px; padding: 5px;">
+            <label class="label cursor-pointer">
+                <span class="label-text" style="font-size: 17px;">D. {{question["optionD"] | safe}}</option></span>
+                <input type="radio" name="{{question['_id']}}" class="radio" value="D" {% if
+                    attemptedQuestions.get(question['_id']) and attemptedQuestions[question['_id']]=='D' %}checked{%
+                    endif %} />
+            </label>
+        </div>
+        <div>
+        </div>
+    </div><br>
+    {% endfor %}
+    <div style="margin-left: 5%; margin-bottom: 5%;">
         <button class="btn btn-outline btn-primary" style="margin: 2;" type="submit">
             Submit all answers
         </button>
-</div>
+    </div>
 </form>
 {% endblock %}

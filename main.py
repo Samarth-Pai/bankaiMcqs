@@ -244,6 +244,10 @@ def account():
     else:
         return render_template("account.html", **session, pageTitle = f"{session["name"]}'s account")
 
+@app.after_request
+def add_header(response):
+    response.headers["Cache-Control"] = "no-store"
+    return response
 
 if __name__=="__main__":
     app.run(debug=True)
