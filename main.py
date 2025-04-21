@@ -4,6 +4,7 @@ from flask_pymongo import MongoClient, ObjectId
 from dotenv import load_dotenv
 from datetime import datetime, timedelta, UTC
 import os, re, random, asyncio, aiosmtplib
+import pickle
 load_dotenv()
 
 app =   Flask(__name__)
@@ -140,6 +141,8 @@ def randomizeOptions(questionDict: dict):
     answer = "ABCD"[randomOptions.index(correctOption)]
     questionDict["optionA"], questionDict["optionB"], questionDict["optionC"], questionDict["optionD"] = randomOptions
     questionDict["answer"] = answer
+    # Convert ObjectId to str
+    questionDict["_id"] = str(questionDict["_id"])
     return questionDict
     
 def addLists(*l):
@@ -164,11 +167,11 @@ def randomizeQuestions(courseCode, mode):
 def quiz(courseCode: str, mode: str):
     if not authorized():
         return redirect("/login")
-    global questionss
     if request.method=="POST":
+        questionss = session["questionss"]
         if ((mode.startswith("MSE") or mode=="QUESTIONS") and len(request.form)<20) or (mode=="SEE" and len(request.form)<30):
             print(request.form, len(request.form))
-            return render_template("quizNotCompleted.html", **session, pageTitle = "Quiz", courseCode = courseCode, mode = mode, questions = enumerate(questionss, 1), attemptedQuestions = {ObjectId(k):v for k, v in request.form.items()})
+            return render_template("quizNotCompleted.html", **session, pageTitle = "Quiz", courseCode = courseCode, mode = mode, questions = enumerate(questionss, 1), attemptedQuestions = {k:v for k, v in request.form.items()})
         points = 0
         history: list = users.find_one({"emailId": session["emailId"]})["history"]
         dt = datetime.now(UTC) + timedelta(hours= 5, minutes= 30)
@@ -180,7 +183,8 @@ def quiz(courseCode: str, mode: str):
             "dateAttempted": dt,
         }
         
-        requestedForm = {ObjectId(k):v for k, v in request.form.items()}
+        # requestedForm = {ObjectId(k):v for k, v in request.form.items()}
+        requestedForm = request.form
         for question in questionss:
             question["attemptedAnswer"] = requestedForm[question["_id"]]
             points+=question["answer"]==question["attemptedAnswer"]
@@ -192,6 +196,7 @@ def quiz(courseCode: str, mode: str):
     
     questions = randomizeQuestions(courseCode, mode)
     questionss = questions.copy()
+    session["questionss"] = questionss
     return render_template("quiz.html", **session, pageTitle = "Quiz", courseCode = courseCode, mode = mode, questions = enumerate(questions, 1), attemptedQuestions = {})
 
 @app.route("/progress/<index>")
