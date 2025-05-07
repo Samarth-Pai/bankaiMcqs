@@ -17,7 +17,7 @@
         <div class="form-container sign-in">
             <form method="POST" action="/otp">
                 <h1>EMAIL verification</h1>
-                <p>An OTP has been sent to {{otpEmailId}}</p>
+                <p>An OTP has been sent to {{otpEmailId}}. Please check your spam folder if it does'nt appears.</p>
                 <input type="text" placeholder="OTP pin" name="otpPin">
                 {% block invalid %}
                 {% endblock %}
